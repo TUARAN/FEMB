@@ -45,9 +45,9 @@ import LinkCell from '@/components/LinkCell'
   cursor: pointer;
 }
 .frontend{
-  width: 100vh;
+  max-width: 1200px;
+  width:100vw;
   height: auto;
-  filter: blur(50px);
 }
   .list-cell {
     display: flex;

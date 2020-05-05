@@ -3,7 +3,7 @@
     <div @click="handleShowFrontendRoad" class="title">FEMB-DEV</div>
     <div v-if="ifShowFrontendRoad">
       <img class="frontend" src='../assets/img/main/frontend.png'/>
-      <span><a href="https://github.com/kamranahmedse/developer-roadmap">图片来源</a></span>
+      <!-- <span><a href="https://github.com/kamranahmedse/developer-roadmap">图片来源</a></span> -->
     </div>
     <div class="list-cell">
       <div v-for="item in linkArr1" :key='item.name'>
@@ -47,6 +47,7 @@ import LinkCell from '@/components/LinkCell'
 .frontend{
   width: 100vh;
   height: auto;
+  filter: blur(50px);
 }
   .list-cell {
     display: flex;

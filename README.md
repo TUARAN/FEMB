@@ -25,3 +25,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### vue-router
 ### scss
+### 渐进式加载图片
+对比懒加载

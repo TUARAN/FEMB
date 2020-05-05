@@ -9,9 +9,14 @@ Vue.use(VueCompositionApi)
 Vue.use(VueRouter)
 
 const routes = [{
-  path: '/list',
-  component: list
-}, ]
+    path: '/',
+    component: list
+  },
+  {
+    path: '/list',
+    component: list
+  }
+]
 
 const router = new VueRouter({
   routes

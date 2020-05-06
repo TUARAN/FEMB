@@ -21,6 +21,9 @@ export default {
   margin-top: 20px;
   font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif; /* 简书 */
 }
+html{
+  touch-action: none;
+}
 body{
   margin:0px;
 }

@@ -1,62 +1,140 @@
 <template>
   <div>
-    <div @click="handleShowFrontendRoad" class="title">FEMB-DEV</div>
-    <div v-if="ifShowFrontendRoad">
-      <img class="frontend" src='../assets/img/main/frontend.png'/>
-      <!-- <span><a href="https://github.com/kamranahmedse/developer-roadmap">图片来源</a></span> -->
+    <TopTitle :ifShowFrontendRoad='ifShowFrontendRoad' @showFrontendRoad='handleShowFrontendRoad'></TopTitle>
+    <!-- 大纲级别目录 -->
+    <TopBar @swith1stBar='handleSwith1stBar' :catalogArr='catalogArr' :curentIndex='swiperIndex'></TopBar>
+    <div class='list-tags'>
+      <swiper class='swiper-page' ref='mySwiper' :options='swiperOptions' @slideChange='handleSlideChange'>
+        <swiper-slide v-for='arrItem in catalogArr' :key='arrItem.key1st'>
+          <!-- 标签级别目录 -->
+          <div class="tag-box">
+            <div class='tag-cell' v-for='tagItem in arrItem.arr1st' :key='tagItem.key2nd'>
+              <TagCell :name='tagItem.name2nd' :key2nd='tagItem.key2nd' @switchTag='handleSwitchTag' :class="tagItem.key2nd===tagIndex?'tag-cell-text':''"></TagCell>
+            </div>
+          </div>
+          <!-- 链接级别目录 -->
+          <div class="link-box" v-for='tagItem in arrItem.arr1st' :key='tagItem.key2nd'>
+            <div class='link-cell' v-for='linkItem in tagItem.arr2nd' :key='linkItem.name'>
+              <LinkCell v-if="tagItem.key2nd===tagIndex" :name='linkItem.name' :imgSrc='linkItem.imgSrc'
+                :des='linkItem.des' :href='linkItem.href'></LinkCell>
+            </div>
+          </div>
+        </swiper-slide>
+      </swiper>
     </div>
-    <div class="list-cell">
-      <div v-for="item in linkArr1" :key='item.name'>
-        <LinkCell :name='item.name' :imgSrc='item.imgSrc' :des='item.des' :href='item.href'></LinkCell>
-      </div>
-    </div>
+    <SideBar>
+    </SideBar>
   </div>
 </template>
 
 <script>
-import LinkCell from '@/components/LinkCell'
+  import TopTitle from '@/components/TopTitle'
+  import TopBar from '@/components/TopBar'
+  import TagCell from '@/components/TagCell'
+  import LinkCell from '@/components/LinkCell'
+  import SideBar from '@/components/SideBar'
+  import {
+    Swiper,
+    SwiperSlide,
+    directive
+  } from 'vue-awesome-swiper'
+  import 'swiper/css/swiper.css'
+  import {
+    catalogArr
+  } from '@/mock/data.js'
   export default {
     name: 'list',
-    components:{LinkCell},
-    data(){
+    components: {
+      TopTitle,
+      TopBar,
+      TagCell,
+      LinkCell,
+      SideBar,
+      Swiper,
+      SwiperSlide
+    },
+    directives: {
+      swiper: directive
+    },
+    data() {
       return {
-        ifShowFrontendRoad:false,
-        linkArr1:[
-          {name:'首页',imgSrc:'',des:'This in homepage.',href:"http://47.107.72.184/index.html"},
-          {name:'FEMB',imgSrc:'',des:'github 仓库地址',href:"https://github.com/TUARAN/FEMB"},
-          {name:'搭建指导',imgSrc:'',des:'nginx+jenkins+github 一条龙建站',href:"https://juejin.im/post/5de798126fb9a016121b209b"},
-          {name:'jenkins构建',imgSrc:'',des:'jenkins构建地址',href:"http://47.107.72.184:8080"},
-          {name:'aliyun',imgSrc:'',des:'选购 ESC 服务器',href:"https://www.aliyun.com/product/ecs"},
-          {name:'Git教程-易百',imgSrc:'',des:'你真的了解 Git 吗？',href:"https://www.yiibai.com/git"},
-        ]
+        ifShowFrontendRoad: false,
+        catalogArr: [],
+        linkArr: [],
+        swiperOptions: {
+          // Some Swiper option/callback...
+        },
+        swiperIndex: 0, // 一级目录 key
+        tagIndex: 0 // 二级目录 key
       }
     },
-    methods:{
-      handleShowFrontendRoad(){
-        this.ifShowFrontendRoad=!this.ifShowFrontendRoad
+    computed: {
+      swiper() {
+        return this.$refs.mySwiper.$swiper
+      }
+    },
+    watch: {
+      swiperIndex() {
+        this.tagIndex = 0
+      }
+    },
+    created() {
+      this.catalogArr = catalogArr
+    },
+    mounted() {
+      // console.log('Current Swiper instance object', this.swiper)
+      this.swiper.slideTo(0, 1000, false)
+    },
+    methods: {
+      handleShowFrontendRoad() {
+        this.ifShowFrontendRoad = !this.ifShowFrontendRoad
+      },
+      handleSwith1stBar(val) {
+        // 点击一级目录
+        this.swiperIndex = val
+        this.swiper.slideTo(this.swiperIndex, 1000, false)
+      },
+      handleSlideChange() {
+        // 滑动一级目录
+        this.swiperIndex = this.swiper.realIndex
+      },
+      handleSwitchTag(val) {
+        // 选择二级目录
+        this.tagIndex = val
       }
     }
   }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+<!-- Add 'scoped' attribute to limit CSS to this component only -->
 <style lang='scss' scoped>
-.title{
-  cursor: pointer;
-}
-.frontend{
-  max-width: 1200px;
-  width:100vw;
-  height: auto;
-}
-  .list-cell {
+  .title {
+    cursor: pointer;
+  }
+  .frontend {
+    max-width: 1200px;
+    width: 100vw;
+    height: auto;
+  }
+  .list-tags {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     flex-wrap: wrap;
     margin: 10px;
-    div{
+    .tag-box,
+    .link-box {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .tag-cell,
+    .link-cell {
       margin: 5px;
+      cursor: pointer;
+      .tag-cell-text{
+        color: red;
+        background: yellow;
+      }
     }
   }
 </style>

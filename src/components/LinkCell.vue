@@ -35,8 +35,8 @@
         border-radius: 2px;
 
         .img-cell {
-            width: 50px;
-            height: 50px;
+            width: 1em;
+            height: 1em;
             margin-right: 5px;
         }
 
@@ -46,6 +46,10 @@
             padding: 0 5px;
             height: 50px;
             a {
+                max-width: 249px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
                 color: #42b983;
                 text-decoration: none;
             }

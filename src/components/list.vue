@@ -9,14 +9,17 @@
           <!-- 标签级别目录 -->
           <div class="tag-box">
             <div class='tag-cell' v-for='tagItem in arrItem.arr1st' :key='tagItem.key2nd'>
-              <TagCell :name='tagItem.name2nd' :key2nd='tagItem.key2nd' @switchTag='handleSwitchTag' :class="tagItem.key2nd===tagIndex?'tag-cell-text':''"></TagCell>
+              <TagCell :name='tagItem.name2nd' :key2nd='tagItem.key2nd' @switchTag='handleSwitchTag'
+                :class="tagItem.key2nd===tagIndex?'tag-cell-text':''"></TagCell>
             </div>
           </div>
           <!-- 链接级别目录 -->
           <div class="link-box" v-for='tagItem in arrItem.arr1st' :key='tagItem.key2nd'>
-            <div class='link-cell' v-for='linkItem in tagItem.arr2nd' :key='linkItem.name'>
-              <LinkCell v-if="tagItem.key2nd===tagIndex" :name='linkItem.name' :imgSrc='linkItem.imgSrc'
-                :des='linkItem.des' :href='linkItem.href'></LinkCell>
+            <div class="ifshow-link-cell" v-if="tagItem.key2nd===tagIndex">
+              <div class='link-cell' v-for='linkItem in tagItem.arr2nd' :key='linkItem.name'>
+                <LinkCell :name='linkItem.name' :imgSrc='linkItem.imgSrc' :des='linkItem.des' :href='linkItem.href'>
+                </LinkCell>
+              </div>
             </div>
           </div>
         </swiper-slide>
@@ -39,9 +42,7 @@
     directive
   } from 'vue-awesome-swiper'
   import 'swiper/css/swiper.css'
-  import {
-    catalogArr
-  } from '@/mock/data.js'
+  import catalogArr from '@/mock/data.js'
   export default {
     name: 'list',
     components: {
@@ -111,30 +112,37 @@
   .title {
     cursor: pointer;
   }
+
   .frontend {
     max-width: 1200px;
     width: 100vw;
     height: auto;
   }
+
   .list-tags {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     flex-wrap: wrap;
     margin: 10px;
+
     .tag-box,
-    .link-box {
+    .link-box,
+    .ifshow-link-cell {
       display: flex;
       flex-wrap: wrap;
     }
+
     .tag-cell,
     .link-cell {
-      margin: 5px;
       cursor: pointer;
-      .tag-cell-text{
+
+      .tag-cell-text {
         color: red;
         background: yellow;
       }
+
+      margin: 5px;
     }
   }
 </style>

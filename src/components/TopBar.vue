@@ -32,14 +32,17 @@ export default {
     .bar-line{
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
+        justify-content: flex-start;
+        flex-wrap: wrap;
         .active{
             cursor: pointer;
+            margin: 0 5px;
             color: green;
             background: red;
         }
         .default{
             cursor: pointer;
+            margin: 0 5px;
         }
     }
 </style>

@@ -1,4 +1,4 @@
-# vue3beta
+# FEBM
 
 ## Project setup
 ```
@@ -50,3 +50,10 @@ npm install swiper vue-awesome-swiper --save
 ├── .eslintrc.js // eslint配置
 └── package.json
 ```
+### bookmark-file-parser（重要）
+node 将书签内容写入
+
+调整原本的 data.js 数据结构,字段名称，名字描述匹配
+
+功能基本实现
+### 样式调整

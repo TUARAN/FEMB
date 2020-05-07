@@ -1,9 +1,14 @@
 <template>
   <div>
-    <div class="title">FEMB-DEV</div><span @click="showFrontendRoad">frontend-roadmap</span>
+    <div class="title-direct">
+        <span>|</span>
+        <div @click="showFrontendRoad">fe-roadmap</div>
+        <span>|</span>
+    </div>  
+    <div class="title">FEMB-DEV</div>
     <div v-if="ifShowFrontendRoad">
         <img class="frontend" src='../assets/img/main/frontend.png'/>
-        <!-- <span><a href="https://github.com/kamranahmedse/developer-roadmap">图片来源</a></span> -->
+        <span><a href="https://github.com/kamranahmedse/developer-roadmap">图片来源</a></span>
     </div>
   </div>
 </template>
@@ -26,6 +31,21 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang='scss'>
+.title-direct{
+    position: fixed;
+    top:5px;
+    right: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100vw;
+    div{
+        cursor: pointer;
+        margin: 0 5px;
+    }
+    span{
+        margin:0 5px;
+    }
+}
 </style>

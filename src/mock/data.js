@@ -1,6 +1,6 @@
 import {
     bm
-} from '../node/bm.js'
+} from './bm.js'
 
 let catalogArr = []
 const bmArr = JSON.parse(JSON.stringify(bm))[0].children

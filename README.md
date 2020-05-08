@@ -5,23 +5,17 @@
 npm install
 ```
 
-### Compiles and hot-reloads for development
+## Compiles and hot-reloads for development && production
 ```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
+npm run febm
 ```
 
-### Lints and fixes files
+## Lints and fixes files
 ```
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Develop log
 
 ### vue-router
 ### scss
@@ -32,7 +26,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ```
 npm install swiper vue-awesome-swiper --save
 ```
-### vuecli3目录
+### vuecli3 目录
 ```
 ├── public // 静态资源
 ├── src // 源代码
@@ -51,11 +45,7 @@ npm install swiper vue-awesome-swiper --save
 └── package.json
 ```
 ### bookmark-file-parser（重要）
-node 将书签内容写入
-
-调整原本的 data.js 数据结构,字段名称，名字描述匹配
-
-功能基本实现
+node 将书签内容写入，调整原本的 data.js 数据结构,字段名称，名字描述匹配
 ### 样式调整
 ### npm run
 npm run 同时执行多行命令，调整node.js的目录

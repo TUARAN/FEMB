@@ -2,8 +2,8 @@
     <div class="link-cell">
         <img v-if="imgSrc!==''" class="img-cell" :src='imgSrc' />
         <div class="txt-cell">
-            <a v-if="href!==''" :href="href">{{name}}</a>
-            <a class="nohref" href='#' title="链接丢失" v-else>{{name}}</a>
+            <span @click="handleOpen(href)"  v-if="href!==''" :href="href">{{name}}</span>
+            <span class="nohref" href='#' title="链接丢失" v-else>{{name}}</span>
             <div v-if="des!==''">{{des}}</div>
             <div v-else>暂无描述</div>
         </div>
@@ -18,6 +18,11 @@
             des: String,
             href: String
         },
+        methods:{
+            handleOpen(url){
+                 window.open(url , '_blank');
+            }
+        }
     }
 </script>
 
@@ -45,7 +50,7 @@
             flex-direction: column;
             padding: 0 5px;
             height: 50px;
-            a {
+            span {
                 max-width: 249px;
                 text-overflow: ellipsis;
                 overflow: hidden;

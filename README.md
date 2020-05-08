@@ -59,3 +59,5 @@ node 将书签内容写入
 ### 样式调整
 ### npm run
 npm run 同时执行多行命令，调整node.js的目录
+### 多页面配置
+配置 vue.config.js 入口，启用多页面

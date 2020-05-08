@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class='content-wrap'>
     <TopTitle :ifShowFrontendRoad='ifShowFrontendRoad' @showFrontendRoad='handleShowFrontendRoad'></TopTitle>
     <!-- 大纲级别目录 -->
     <TopBar @swith1stBar='handleSwith1stBar' :catalogArr='catalogArr' :curentIndex='swiperIndex'></TopBar>
@@ -42,7 +42,7 @@
     directive
   } from 'vue-awesome-swiper'
   import 'swiper/css/swiper.css'
-  import catalogArr from '@/mock/data.js'
+  import catalogArr from '@/data/data.js'
   export default {
     name: 'list',
     components: {
@@ -109,40 +109,45 @@
 
 <!-- Add 'scoped' attribute to limit CSS to this component only -->
 <style lang='scss' scoped>
-  .title {
-    cursor: pointer;
-  }
+  .content-wrap {
+    margin-top: 50px;
 
-  .frontend {
-    max-width: 1200px;
-    width: 100vw;
-    height: auto;
-  }
-
-  .list-tags {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    margin: 10px;
-
-    .tag-box,
-    .link-box,
-    .ifshow-link-cell {
-      display: flex;
-      flex-wrap: wrap;
+    .title {
+      cursor: pointer;
     }
 
-    .tag-cell,
-    .link-cell {
-      cursor: pointer;
+    .frontend {
+      max-width: 1200px;
+      width: 100vw;
+      height: auto;
+    }
 
-      .tag-cell-text {
-        color: red;
-        background: yellow;
+    .list-tags {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      margin: 10px;
+
+      .tag-box,
+      .link-box,
+      .ifshow-link-cell {
+        display: flex;
+        flex-wrap: wrap;
       }
 
-      margin: 5px;
+      .tag-cell,
+      .link-cell {
+        cursor: pointer;
+
+        .tag-cell-text {
+          color: #333;
+          padding: 2px 5px;
+          border: 1px solid #666;
+        }
+
+        margin: 5px;
+      }
     }
   }
 </style>

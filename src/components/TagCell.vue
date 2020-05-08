@@ -23,4 +23,10 @@
 </script>
 
 <style lang='scss' scoped>
+.tag-cell{
+    div{
+        font-size: 0.98em;
+        font-family: '-webkit-pictograph';
+    }
+}
 </style>>

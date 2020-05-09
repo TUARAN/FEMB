@@ -1,29 +1,32 @@
 <template>
-  <div class='content-wrap'>
-    <TopTitle :ifShowFrontendRoad='ifShowFrontendRoad' @showFrontendRoad='handleShowFrontendRoad'></TopTitle>
-    <!-- 大纲级别目录 -->
-    <TopBar @swith1stBar='handleSwith1stBar' :catalogArr='catalogArr' :curentIndex='swiperIndex'></TopBar>
-    <div class='list-tags'>
-      <swiper class='swiper-page' ref='mySwiper' :options='swiperOptions' @slideChange='handleSlideChange'>
-        <swiper-slide v-for='arrItem in catalogArr' :key='arrItem.key1st'>
-          <!-- 标签级别目录 -->
-          <div class="tag-box">
-            <div class='tag-cell' v-for='tagItem in arrItem.arr1st' :key='tagItem.key2nd'>
-              <TagCell :name='tagItem.name2nd' :key2nd='tagItem.key2nd' @switchTag='handleSwitchTag'
-                :class="tagItem.key2nd===tagIndex?'tag-cell-text':''"></TagCell>
-            </div>
-          </div>
-          <!-- 链接级别目录 -->
-          <div class="link-box" v-for='tagItem in arrItem.arr1st' :key='tagItem.key2nd'>
-            <div class="ifshow-link-cell" v-if="tagItem.key2nd===tagIndex">
-              <div class='link-cell' v-for='linkItem in tagItem.arr2nd' :key='linkItem.name'>
-                <LinkCell :name='linkItem.name' :imgSrc='linkItem.imgSrc' :des='linkItem.des' :href='linkItem.href'>
-                </LinkCell>
+  <div class='content-wrap' ref="contentRef">
+    <TopTitle class="top-title" ref="topRef" :ifShowFrontendRoad='ifShowFrontendRoad' @changeColor='handleChangeColor'
+      @showFrontendRoad='handleShowFrontendRoad'></TopTitle>
+    <div v-if="!ifShowFrontendRoad">
+      <!-- 大纲级别目录 -->
+      <TopBar ref="barRef" @swith1stBar='handleSwith1stBar' :catalogArr='catalogArr' :curentIndex='swiperIndex'></TopBar>
+      <div class='list-tags'>
+        <swiper class='swiper-page' ref='mySwiper' :options='swiperOptions' @slideChange='handleSlideChange'>
+          <swiper-slide v-for='arrItem in catalogArr' :key='arrItem.key1st'>
+            <!-- 标签级别目录 -->
+            <div class="tag-box" ref="tagBoxRef">
+              <div class='tag-cell' v-for='tagItem in arrItem.arr1st' :key='tagItem.key2nd'>
+                <TagCell :name='tagItem.name2nd' :key2nd='tagItem.key2nd' @switchTag='handleSwitchTag'
+                  :class="tagItem.key2nd===tagIndex?'tag-cell-text':''"></TagCell>
               </div>
             </div>
-          </div>
-        </swiper-slide>
-      </swiper>
+            <!-- 链接级别目录 -->
+            <div class="link-box" v-for='tagItem in arrItem.arr1st' :key='tagItem.key2nd'>
+              <div class="ifshow-link-cell" v-if="tagItem.key2nd===tagIndex">
+                <div class='link-cell' v-for='linkItem in tagItem.arr2nd' :key='linkItem.name'>
+                  <LinkCell :name='linkItem.name' :imgSrc='linkItem.imgSrc' :des='linkItem.des' :href='linkItem.href'>
+                  </LinkCell>
+                </div>
+              </div>
+            </div>
+          </swiper-slide>
+        </swiper>
+      </div>
     </div>
     <SideBar>
     </SideBar>
@@ -36,6 +39,10 @@
   import TagCell from '@/components/TagCell'
   import LinkCell from '@/components/LinkCell'
   import SideBar from '@/components/SideBar'
+  import {
+    chinaColor
+  } from '@/utils/chinaColor.js'
+  import randomNum from '@/utils/random.js'
   import {
     Swiper,
     SwiperSlide,
@@ -83,8 +90,8 @@
       this.catalogArr = catalogArr
     },
     mounted() {
-      // console.log('Current Swiper instance object', this.swiper)
       this.swiper.slideTo(0, 1000, false)
+      this.handleChangeColor()
     },
     methods: {
       handleShowFrontendRoad() {
@@ -102,6 +109,13 @@
       handleSwitchTag(val) {
         // 选择二级目录
         this.tagIndex = val
+      },
+      handleChangeColor() {
+        // 换肤
+        this.$refs.topRef.$vnode.elm.style.background = chinaColor[randomNum(0, chinaColor.length)].hex
+        this.$refs.barRef.$vnode.elm.style.background = chinaColor[randomNum(0, chinaColor.length)].hex
+        this.$refs.tagBoxRef[0].style.background = chinaColor[randomNum(0, chinaColor.length)].hex
+        
       }
     }
   }
@@ -110,9 +124,11 @@
 <!-- Add 'scoped' attribute to limit CSS to this component only -->
 <style lang='scss' scoped>
   .content-wrap {
-    margin-top: 50px;
+    height: calc(100vh - 0px);
 
-    .title {
+    .top-title {
+      position: fixed;
+      top: 0px;
       cursor: pointer;
     }
 
@@ -127,7 +143,6 @@
       flex-direction: row;
       justify-content: flex-start;
       flex-wrap: wrap;
-      margin: 10px;
 
       .tag-box,
       .link-box,

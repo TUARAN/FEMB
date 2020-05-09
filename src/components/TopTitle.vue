@@ -4,10 +4,11 @@
         <span>|</span>
         <div>FEMB-DEV</div>
         <span>|</span>
-        <div @click="showFrontendRoad">fe-roadmap</div>
+        <div @click="showFrontendRoad">FE-Roadmap</div>
+        <span>|</span>
+        <div @click="changeColor"><svg-icon iconClass='changeclose'></svg-icon></div>
         <span>|</span>
     </div>  
-    <!-- <div class="title">FEMB-DEV</div> -->
     <div v-if="ifShowFrontendRoad">
         <img class="frontend" src='../assets/img/main/frontend.png'/>
         <span><a href="https://github.com/kamranahmedse/developer-roadmap">图片来源</a></span>
@@ -28,6 +29,9 @@ export default {
     methods:{
             showFrontendRoad(){
                 this.$emit("showFrontendRoad")
+            },
+            changeColor(){
+                this.$emit("changeColor")
             }
     }
 }
@@ -35,9 +39,6 @@ export default {
 
 <style lang='scss'>
 .title-direct{
-    position: fixed;
-    top:5px;
-    right: 10px;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;

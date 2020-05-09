@@ -3,6 +3,7 @@ import App from './App.vue'
 import VueCompositionApi from '@vue/composition-api'
 import VueRouter from 'vue-router'
 import index from '@/pages/index/views/index'
+import '@/icons'
 
 Vue.config.productionTip = false
 Vue.use(VueCompositionApi)

@@ -35,14 +35,14 @@ export default {
         justify-content: space-around;
         flex-wrap: wrap;
         font-family: fantasy;
-        .active{
+        padding: 20px 0px;
+        padding-top:50px;
+        .default,.active{
             cursor: pointer;
             margin: 0 5px;
-            border-bottom: 1px solid #999;
         }
-        .default{
-            cursor: pointer;
-            margin: 0 5px;
+        .active{
+            border-bottom: 1px solid #999;
         }
     }
 </style>

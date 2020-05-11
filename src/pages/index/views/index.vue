@@ -115,7 +115,6 @@
         this.$refs.topRef.$vnode.elm.style.background = chinaColor[randomNum(0, chinaColor.length)].hex
         this.$refs.barRef.$vnode.elm.style.background = chinaColor[randomNum(0, chinaColor.length)].hex
         this.$refs.tagBoxRef[0].style.background = chinaColor[randomNum(0, chinaColor.length)].hex
-        
       }
     }
   }

@@ -6,7 +6,7 @@
         <span>|</span>
         <div @click="showFrontendRoad">FE-Roadmap</div>
         <span>|</span>
-        <div @click="changeColor"><svg-icon iconClass='changeclose'></svg-icon></div>
+        <div @click="changeColor"><svg-icon iconClass='changeclose'></svg-icon> 换肤</div>
         <span>|</span>
     </div>  
     <div v-if="ifShowFrontendRoad">

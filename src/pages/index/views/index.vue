@@ -112,9 +112,12 @@
       },
       handleChangeColor() {
         // 换肤
-        this.$refs.topRef.$vnode.elm.style.background = chinaColor[randomNum(0, chinaColor.length)].hex
-        this.$refs.barRef.$vnode.elm.style.background = chinaColor[randomNum(0, chinaColor.length)].hex
-        this.$refs.tagBoxRef[0].style.background = chinaColor[randomNum(0, chinaColor.length)].hex
+        const radomColorIndex=randomNum(0, chinaColor.length)
+        this.$refs.topRef.$vnode.elm.style.background = chinaColor[radomColorIndex].hex
+        this.$refs.barRef.$vnode.elm.style.background = chinaColor[radomColorIndex].hex
+        this.$refs.tagBoxRef.forEach(item=>{
+          item.style.background = chinaColor[radomColorIndex].hex
+        })
       }
     }
   }

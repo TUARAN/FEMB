@@ -1,15 +1,15 @@
 <template>
   <div class='content-wrap' ref="contentRef">
-    <TopTitle class="top-title" ref="topRef" :ifShowFrontendRoad='ifShowFrontendRoad' @changeColor='handleChangeColor'
+    <TopTitle class="top-title" ref="topRef" @changeColor='handleChangeColor("change")'
       @showFrontendRoad='handleShowFrontendRoad'></TopTitle>
-    <div v-if="!ifShowFrontendRoad">
+    <div>
       <!-- 大纲级别目录 -->
-      <TopBar ref="barRef" @swith1stBar='handleSwith1stBar' :catalogArr='catalogArr' :curentIndex='swiperIndex'></TopBar>
+      <TopBar ref="barRef" @swith1stBar='handleSwith1stBar'  @mouseOverBar="handleMouseOverBar" :catalogArr='catalogArr' :curentIndex='swiperIndex'></TopBar>
       <div class='list-tags'>
         <swiper class='swiper-page' ref='mySwiper' :options='swiperOptions' @slideChange='handleSlideChange'>
           <swiper-slide v-for='arrItem in catalogArr' :key='arrItem.key1st'>
             <!-- 标签级别目录 -->
-            <div class="tag-box" ref="tagBoxRef">
+            <div class="tag-box" v-if="showTagBox" ref="tagBoxRef">
               <div class='tag-cell' v-for='tagItem in arrItem.arr1st' :key='tagItem.key2nd'>
                 <TagCell :name='tagItem.name2nd' :key2nd='tagItem.key2nd' @switchTag='handleSwitchTag'
                   :class="tagItem.key2nd===tagIndex?'tag-cell-text':''"></TagCell>
@@ -17,7 +17,7 @@
             </div>
             <!-- 链接级别目录 -->
             <div class="link-box" v-for='tagItem in arrItem.arr1st' :key='tagItem.key2nd'>
-              <div class="ifshow-link-cell" v-if="tagItem.key2nd===tagIndex">
+              <div class="show-link-cell" v-if="tagItem.key2nd===tagIndex">
                 <div class='link-cell' v-for='linkItem in tagItem.arr2nd' :key='linkItem.name'>
                   <LinkCell :name='linkItem.name' :imgSrc='linkItem.imgSrc' :des='linkItem.des' :href='linkItem.href'>
                   </LinkCell>
@@ -59,21 +59,21 @@
       LinkCell,
       SideBar,
       Swiper,
-      SwiperSlide
+      SwiperSlide,
     },
     directives: {
       swiper: directive
     },
     data() {
       return {
-        ifShowFrontendRoad: false,
         catalogArr: [],
         linkArr: [],
         swiperOptions: {
           // Some Swiper option/callback...
         },
         swiperIndex: 0, // 一级目录 key
-        tagIndex: 0 // 二级目录 key
+        tagIndex: 0, // 二级目录 key
+        showTagBox:true
       }
     },
     computed: {
@@ -91,16 +91,21 @@
     },
     mounted() {
       this.swiper.slideTo(0, 1000, false)
-      this.handleChangeColor()
+      this.handleChangeColor('init')
     },
     methods: {
       handleShowFrontendRoad() {
-        this.ifShowFrontendRoad = !this.ifShowFrontendRoad
+        window.open('/admin.html')
       },
       handleSwith1stBar(val) {
         // 点击一级目录
         this.swiperIndex = val
         this.swiper.slideTo(this.swiperIndex, 1000, false)
+      },
+      handleMouseOverBar(val){
+        // hover 一级目录
+         this.swiperIndex = val
+         this.swiper.slideTo(this.swiperIndex, 1000, false)
       },
       handleSlideChange() {
         // 滑动一级目录
@@ -110,13 +115,24 @@
         // 选择二级目录
         this.tagIndex = val
       },
-      handleChangeColor() {
+      handleChangeColor(rgb) {
         // 换肤
-        const radomColorIndex=randomNum(0, chinaColor.length)
-        this.$refs.topRef.$vnode.elm.style.background = chinaColor[radomColorIndex].hex
-        this.$refs.barRef.$vnode.elm.style.background = chinaColor[radomColorIndex].hex
+        var bgColorTopRef
+        var bgColorBarRef
+        var bgColorTagBoxRef
+        if(rgb==='init'){
+          bgColorTopRef='rgb(86, 152, 195)'
+          bgColorBarRef='rgb(86, 152, 195)'
+          bgColorTagBoxRef='rgb(86, 152, 195,0.29)'
+        }else{
+          bgColorTopRef=chinaColor[randomNum(0, chinaColor.length)].hex
+          bgColorBarRef=chinaColor[randomNum(0, chinaColor.length)].hex
+          bgColorTagBoxRef=chinaColor[randomNum(0, chinaColor.length)].hex
+        }
+        this.$refs.topRef.$vnode.elm.style.background=bgColorTopRef;
+        this.$refs.barRef.$vnode.elm.style.background=bgColorBarRef;
         this.$refs.tagBoxRef.forEach(item=>{
-          item.style.background = chinaColor[radomColorIndex].hex
+          item.style.background = bgColorTagBoxRef;
         })
       }
     }
@@ -126,20 +142,15 @@
 <!-- Add 'scoped' attribute to limit CSS to this component only -->
 <style lang='scss' scoped>
   .content-wrap {
-    height: calc(100vh - 0px);
-
+     overflow-x: hidden;
     .top-title {
-      position: fixed;
-      top: 0px;
       cursor: pointer;
     }
-
     .frontend {
       max-width: 1200px;
       width: 100vw;
       height: auto;
     }
-
     .list-tags {
       display: flex;
       flex-direction: row;
@@ -148,23 +159,29 @@
 
       .tag-box,
       .link-box,
-      .ifshow-link-cell {
+      .show-link-cell {
         display: flex;
         flex-wrap: wrap;
+        align-items: flex-start;
       }
 
       .tag-cell,
       .link-cell {
         cursor: pointer;
-
         .tag-cell-text {
-          color: #333;
           padding: 2px 5px;
-          border: 1px solid #666;
         }
-
         margin: 5px;
+      }
+      .tag-box{
+        color: #333;
       }
     }
   }
+</style>
+<style >
+.swiper-slide{
+    height: calc(100vh - 100px);
+    overflow-y: auto;
+}
 </style>

@@ -2,24 +2,22 @@
   <div>
     <div class="title-direct">
         <span>|</span>
+        <div @click="toREADME">开发日志</div>
+        <span>|</span>
         <div>FEMB-DEV</div>
         <span>|</span>
         <div @click="showFrontendRoad">FE-Roadmap</div>
         <span>|</span>
         <div @click="changeColor"><svg-icon iconClass='changeclose'></svg-icon> 换肤</div>
         <span>|</span>
+        <div style="width:10px"></div>
     </div>  
-    <div v-if="ifShowFrontendRoad">
-        <img class="frontend" src='../assets/img/main/frontend.png'/>
-        <span><a href="https://github.com/kamranahmedse/developer-roadmap">图片来源</a></span>
-    </div>
   </div>
 </template>
 
 <script>
 export default {
     props:{
-        ifShowFrontendRoad:Boolean
     },
     data(){
         return{
@@ -32,6 +30,9 @@ export default {
             },
             changeColor(){
                 this.$emit("changeColor")
+            },
+            toREADME(){
+                window.open('https://github.com/TUARAN/FEMB/blob/master/README.md')
             }
     }
 }

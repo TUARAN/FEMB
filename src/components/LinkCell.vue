@@ -30,6 +30,10 @@
     .link-cell {
         margin: 0 10px;
         padding: 3px 5px;
+        width: 200px;
+        height: 60px;
+        overflow: hidden;
+        
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
@@ -38,7 +42,11 @@
             0 0 0 2px rgb(255, 255, 255),
             0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
         border-radius: 2px;
-
+         text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                color: #42b983;
+                text-decoration: none;    
         .img-cell {
             width: 1em;
             height: 1em;
@@ -51,7 +59,6 @@
             padding: 0 5px;
             height: 50px;
             span {
-                max-width: 249px;
                 text-overflow: ellipsis;
                 overflow: hidden;
                 white-space: nowrap;
@@ -64,7 +71,6 @@
             }
 
             div {
-                max-width: 249px;
                 text-overflow: ellipsis;
                 overflow: hidden;
                 white-space: nowrap;

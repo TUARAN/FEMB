@@ -1,55 +1,64 @@
 # FEBM
 
-## Project setup
+## 缘起
+
+做前端开发至今，收藏过不少网站链接作为浏览器书签。随着时间的推移，收集的链接越来越多，书签的整理难度越来越大，冗余和不规范也越来越多。
+
+回首一看，已收集了上千书签链接。
+
+让人不禁思考，能不能做点什么,来规范在[前端路径](https://roadmap.sh/frontend)学习过程中收集的书签？
+
+1. 可以让自己在路径学习中更加系统化。
+2. 遇到问题可以快速定位到一个解决链接（也能快速地分享给同伴）。
+3. 一串简单的 URL，就能将你传送到一个新的世界，打开视野。
+
+之前在掘金上发布过一篇文章[作为一个卑微的前端仔，我收集了哪些网站链接？](https://juejin.im/post/5d786039e51d45621320319f)。每隔一段时间，都会新增一两个赞，让我想兑现结语的那段话
+
+>后续仍会持续更新，您的点赞是我坚持下去的动力。或将更改展现形式，以期梳理自我和方便大家。期待交流和建议！
+
+一个人的力量实在太小，且水平有限，只得抛砖引玉。
+
+最终希望实现：前端工程师们可以将各自浏览器书签添加到这个项目中，共同努力，做一个规范、有效的“前端书签”网站。
+
+TODO：
+1. 根据前端 roadmap 整理生成二级目录。
+2. 每个子目录将有链接单元，暂定要素包括：图表、标题、描述。
+3. 提供全局搜索功能。
+4. 增加排序功能或热榜列表。
+5. 增加个人中心。
+6. 更多......
+
+## 项目安装
+
 ```
 npm install
 ```
 
-## Compiles and hot-reloads for development && production
+## 项目运行
+你可以将你的浏览器书签导出，然后替换 /data/bm.html 这个文件，再运行以下命令即可。
 ```
 npm run febm
 ```
 
-## Lints and fixes files
-```
-npm run lint
-```
-
-## Develop log
-
+## 开发日志
+### Vuecli3
+利用脚手架 Vue cli3 搭建
 ### vue-router
+新增路由
 ### scss
-### 渐进式加载图片
-对比懒加载
-### 一级目录-二级目录-三级目录
-### swiper
+新增scss
+### 实现二级目录
+### 页面滑动
 ```
 npm install swiper vue-awesome-swiper --save
 ```
-### vuecli3 目录
-```
-├── public // 静态资源
-├── src // 源代码
-│ ├── api // 所有请求
-│ ├── assets // 主题 字体等静态资源
-│ ├── components // 全局公用组件
-│ ├── models // 实体类
-│ ├── router // 路由及路由配置相关
-│ ├── store // 全局 store管理
-│ ├── utils // 全局公用方法
-│ ├── pages // view
-│ ├── App.vue // 入口页面
-│ ├── main.js // 入口 加载组件 初始化等
-├── tests // jest测试
-├── .eslintrc.js // eslint配置
-└── package.json
-```
 ### bookmark-file-parser（重要）
-node 将书签内容写入，调整原本的 data.js 数据结构,字段名称，名字描述匹配
-### 样式调整
-### npm run
+nodeReadBM.js 将从浏览器导出的书签把内容写入到项目中，并且匹配到对应的二级目录（已实现）
+### npm run 
 npm run 同时执行多行命令，调整node.js的目录
 ### 多页面配置
 配置 vue.config.js 入口，启用多页面
 ### icon-svg
-vueli3 下的loader配置
+新增 icon-svg
+### style
+样式调整
